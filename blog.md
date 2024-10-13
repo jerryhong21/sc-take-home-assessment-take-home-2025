@@ -32,8 +32,6 @@ type Folder struct {
 }
 ```
 
-Using this data strucutre,
-
 `GetAllChildFolders`:
 
 
@@ -48,3 +46,7 @@ Space complexity is also reduced to $O(k)$ since we just need to temporarily sto
 
 #### Tradeoffs discussion
 The tradeoffs of using this data strucutre are apparent - the benefit is efficiency, especially in consideration for other operations whilst the downside is added complexity, and implementation maintenance to ensure data structures are updated appropriately.
+
+Another major benefit is scalability, hierarchical relationships will be able to perform better with deep hierarchies and a larger database as opposed to a flat slice.
+
+
