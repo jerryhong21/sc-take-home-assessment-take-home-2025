@@ -19,8 +19,8 @@ func (f *driver) GetFoldersByOrgID(orgID uuid.UUID) []Folder {
 	return res
 }
 
-func (f *driver) GetAllChildFolders(orgID uuid.UUID, name string) []Folder {
+func (f *driver) GetAllChildFolders(orgID uuid.UUID, name string) ([]Folder, error) {
 	// Your code here...
 
-	return []Folder{}
+	return []Folder{}, nil
 }
