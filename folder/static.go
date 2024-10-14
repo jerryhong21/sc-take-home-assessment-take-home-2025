@@ -125,11 +125,12 @@ func PrettyPrint(b interface{}) {
 	fmt.Print(string(s))
 }
 
-func GetSampleData() []Folder {
+// Since go doesn't support default parameters, we will create a wrapper function
+func GetSampleDataFrom(fileName string) []Folder {
 	_, filename, _, _ := runtime.Caller(0)
 	fmt.Println(filename)
 	basePath := filepath.Dir(filename)
-	filePath := filepath.Join(basePath, "sample.json")
+	filePath := filepath.Join(basePath, fileName)
 
 	fmt.Println(filePath)
 
@@ -151,6 +152,10 @@ func GetSampleData() []Folder {
 	}
 
 	return folders
+}
+
+func GetSampleData() []Folder {
+	return GetSampleDataFrom("sample.json")
 }
 
 func WriteSampleData(data interface{}) {

@@ -1,0 +1,162 @@
+[
+    {
+        "name": "enterprise-alpha",
+        "org_id": "aa11bb22-cc33-dd44-ee55-ff6677889900",
+        "paths": "enterprise-alpha"
+    },
+    {
+        "name": "enterprise-beta",
+        "org_id": "aa11bb22-cc33-dd44-ee55-ff6677889900",
+        "paths": "enterprise-alpha.enterprise-beta"
+    },
+    {
+        "name": "enterprise-gamma",
+        "org_id": "aa11bb22-cc33-dd44-ee55-ff6677889900",
+        "paths": "enterprise-alpha.enterprise-beta.enterprise-gamma"
+    },
+    {
+        "name": "enterprise-delta",
+        "org_id": "aa11bb22-cc33-dd44-ee55-ff6677889900",
+        "paths": "enterprise-alpha.enterprise-beta.enterprise-gamma.enterprise-delta"
+    },
+    {
+        "name": "enterprise-epsilon",
+        "org_id": "aa11bb22-cc33-dd44-ee55-ff6677889900",
+        "paths": "enterprise-alpha.enterprise-beta.enterprise-epsilon"
+    },
+    {
+        "name": "enterprise-zeta",
+        "org_id": "aa11bb22-cc33-dd44-ee55-ff6677889900",
+        "paths": "enterprise-alpha.enterprise-zeta"
+    },
+    {
+        "name": "enterprise-eta",
+        "org_id": "aa11bb22-cc33-dd44-ee55-ff6677889900",
+        "paths": "enterprise-alpha.enterprise-zeta.enterprise-eta"
+    },
+    {
+        "name": "enterprise-theta",
+        "org_id": "aa11bb22-cc33-dd44-ee55-ff6677889900",
+        "paths": "enterprise-alpha.enterprise-zeta.enterprise-eta.enterprise-theta"
+    },
+    {
+        "name": "enterprise-iota",
+        "org_id": "bb22cc33-dd44-ee55-ff66-77889900aabb",
+        "paths": "enterprise-iota"
+    },
+    {
+        "name": "enterprise-kappa",
+        "org_id": "bb22cc33-dd44-ee55-ff66-77889900aabb",
+        "paths": "enterprise-iota.enterprise-kappa"
+    },
+    {
+        "name": "enterprise-lambda",
+        "org_id": "bb22cc33-dd44-ee55-ff66-77889900aabb",
+        "paths": "enterprise-iota.enterprise-kappa.enterprise-lambda"
+    },
+    {
+        "name": "enterprise-mu",
+        "org_id": "bb22cc33-dd44-ee55-ff66-77889900aabb",
+        "paths": "enterprise-iota.enterprise-kappa.enterprise-lambda.enterprise-mu"
+    },
+    {
+        "name": "enterprise-nu",
+        "org_id": "bb22cc33-dd44-ee55-ff66-77889900aabb",
+        "paths": "enterprise-iota.enterprise-nu"
+    },
+    {
+        "name": "enterprise-xi",
+        "org_id": "cc33dd44-ee55-ff66-7788-9900aabbccdd",
+        "paths": "enterprise-xi"
+    },
+    {
+        "name": "enterprise-omicron",
+        "org_id": "cc33dd44-ee55-ff66-7788-9900aabbccdd",
+        "paths": "enterprise-xi.enterprise-omicron"
+    },
+    {
+        "name": "enterprise-pi",
+        "org_id": "cc33dd44-ee55-ff66-7788-9900aabbccdd",
+        "paths": "enterprise-xi.enterprise-omicron.enterprise-pi"
+    },
+    {
+        "name": "enterprise-rho",
+        "org_id": "cc33dd44-ee55-ff66-7788-9900aabbccdd",
+        "paths": "enterprise-xi.enterprise-omicron.enterprise-pi.enterprise-rho"
+    },
+    {
+        "name": "enterprise-sigma",
+        "org_id": "cc33dd44-ee55-ff66-7788-9900aabbccdd",
+        "paths": "enterprise-xi.enterprise-omicron.enterprise-sigma"
+    },
+    {
+        "name": "enterprise-tau",
+        "org_id": "cc33dd44-ee55-ff66-7788-9900aabbccdd",
+        "paths": "enterprise-xi.enterprise-omicron.enterprise-sigma.enterprise-tau"
+    },
+    {
+        "name": "enterprise-upsilon",
+        "org_id": "dd44ee55-ff66-7788-9900-aabbccddeeff",
+        "paths": "enterprise-upsilon"
+    },
+    {
+        "name": "enterprise-phi",
+        "org_id": "dd44ee55-ff66-7788-9900-aabbccddeeff",
+        "paths": "enterprise-upsilon.enterprise-phi"
+    },
+    {
+        "name": "enterprise-chi",
+        "org_id": "dd44ee55-ff66-7788-9900-aabbccddeeff",
+        "paths": "enterprise-upsilon.enterprise-phi.enterprise-chi"
+    },
+    {
+        "name": "enterprise-psi",
+        "org_id": "dd44ee55-ff66-7788-9900-aabbccddeeff",
+        "paths": "enterprise-upsilon.enterprise-psi"
+    },
+    {
+        "name": "enterprise-omega",
+        "org_id": "dd44ee55-ff66-7788-9900-aabbccddeeff",
+        "paths": "enterprise-upsilon.enterprise-psi.enterprise-omega"
+    },
+    {
+        "name": "enterprise-alpha1",
+        "org_id": "aa11bb22-cc33-dd44-ee55-ff6677889900",
+        "paths": "enterprise-alpha.enterprise-beta.enterprise-gamma.enterprise-delta.enterprise-alpha1"
+    },
+    {
+        "name": "enterprise-beta1",
+        "org_id": "aa11bb22-cc33-dd44-ee55-ff6677889900",
+        "paths": "enterprise-alpha.enterprise-beta.enterprise-gamma.enterprise-delta.enterprise-beta1"
+    },
+    {
+        "name": "enterprise-gamma1",
+        "org_id": "aa11bb22-cc33-dd44-ee55-ff6677889900",
+        "paths": "enterprise-alpha.enterprise-beta.enterprise-gamma.enterprise-delta.enterprise-gamma1"
+    },
+    {
+        "name": "enterprise-delta1",
+        "org_id": "aa11bb22-cc33-dd44-ee55-ff6677889900",
+        "paths": "enterprise-alpha.enterprise-beta.enterprise-gamma.enterprise-delta.enterprise-delta1"
+    },
+    {
+        "name": "enterprise-epsilon1",
+        "org_id": "aa11bb22-cc33-dd44-ee55-ff6677889900",
+        "paths": "enterprise-alpha.enterprise-beta.enterprise-gamma.enterprise-epsilon.enterprise-epsilon1"
+    },
+    {
+        "name": "enterprise-zeta1",
+        "org_id": "aa11bb22-cc33-dd44-ee55-ff6677889900",
+        "paths": "enterprise-alpha.enterprise-zeta.enterprise-eta.enterprise-theta.enterprise-zeta1"
+    },
+    {
+        "name": "enterprise-eta1",
+        "org_id": "aa11bb22-cc33-dd44-ee55-ff6677889900",
+        "paths": "enterprise-alpha.enterprise-zeta.enterprise-eta.enterprise-theta.enterprise-eta1"
+    },
+    {
+        "name": "enterprise-theta1",
+        "org_id": "aa11bb22-cc33-dd44-ee55-ff6677889900",
+        "paths": "enterprise-alpha.enterprise-zeta.enterprise-eta.enterprise-theta.enterprise-theta1"
+    }
+]

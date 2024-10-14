@@ -1,0 +1,27 @@
+[
+    {
+        "name": "test-suite",
+        "org_id": "38b9879b-f73b-4b0e-b9d9-4fc4c23643a7",
+        "paths": "test-suite"
+    },
+    {
+        "name": "unit-tests",
+        "org_id": "38b9879b-f73b-4b0e-b9d9-4fc4c23643a7",
+        "paths": "test-suite.unit-tests"
+    },
+    {
+        "name": "integration-tests",
+        "org_id": "38b9879b-f73b-4b0e-b9d9-4fc4c23643a7",
+        "paths": "test-suite.integration-tests"
+    },
+    {
+        "name": "end-to-end-tests",
+        "org_id": "87654321-4321-4321-4321-ba0987654321",
+        "paths": "test-suite.end-to-end-tests"
+    },
+    {
+        "name": "performance-tests",
+        "org_id": "87654321-4321-4321-4321-ba0987654321",
+        "paths": "test-suite.performance-tests"
+    }
+]
