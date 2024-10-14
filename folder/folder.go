@@ -58,6 +58,7 @@ func NewDriver(folders []Folder) (IDriver, error) {
 		folderDriver.pathIndex[f.Paths] = &f
 		folderDriver.nameIndex[f.Name] = append(folderDriver.nameIndex[f.Name], &f)
 		folderDriver.orgIdIndex[f.OrgId] = append(folderDriver.orgIdIndex[f.OrgId], &f)
+		fmt.Printf("Processed %s\n", folder.Name)
 	}
 
 	// precondition: folderDriver.folder and all folderDriver maps are populated
