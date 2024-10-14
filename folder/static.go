@@ -29,10 +29,13 @@ const MaxDepth = 5
 // the default orgID that we will be using for testing
 const DefaultOrgID = "c1556e17-b7c0-45a3-a6ae-9546248fb17a"
 
+// Node in the tree structure
 type Folder struct {
-	Name  string    `json:"name"`
-	OrgId uuid.UUID `json:"org_id"`
-	Paths string    `json:"paths"`
+	Name  string       `json:"name"`
+	OrgId uuid.UUID    `json:"org_id"`
+	Paths string       `json:"paths"`
+	Parent *Folder     `json:"-"` 				   // this is excluded from json
+	Children []*Folder `json:"children,omitempty"` // omitted if empty
 }
 
 func GenerateData() []Folder {
@@ -90,7 +93,7 @@ func generateTree(depth int, tree []Folder) []Folder {
 	// generated concurrently
 	for _, t := range tree {
 		numOfChild := rng.Int()%MaxChild + 1
-		
+
 		for i := 0; i < numOfChild; i++ {
 			name := codename.Generate(rng, 0)
 
@@ -122,11 +125,12 @@ func PrettyPrint(b interface{}) {
 	fmt.Print(string(s))
 }
 
-func GetSampleData() []Folder {
+// Since go doesn't support default parameters, we will create a wrapper function
+func GetSampleDataFrom(fileName string) []Folder {
 	_, filename, _, _ := runtime.Caller(0)
 	fmt.Println(filename)
 	basePath := filepath.Dir(filename)
-	filePath := filepath.Join(basePath, "sample.json")
+	filePath := filepath.Join(basePath, fileName)
 
 	fmt.Println(filePath)
 
@@ -148,6 +152,10 @@ func GetSampleData() []Folder {
 	}
 
 	return folders
+}
+
+func GetSampleData() []Folder {
+	return GetSampleDataFrom("sample.json")
 }
 
 func WriteSampleData(data interface{}) {
