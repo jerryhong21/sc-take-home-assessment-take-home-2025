@@ -50,3 +50,32 @@ The tradeoffs of using this data strucutre are apparent - the benefit is efficie
 Another major benefit is scalability, hierarchical relationships will be able to perform better with deep hierarchies and a larger database as opposed to a flat slice.
 
 
+
+#### Test planning for `getAllChildFolders` function  \(15/10/24\) 
+
+
+##### Possible test cases:
+
+##### Basic functionalities include
+1. Single node (no children)
+2. Parent with multiple children
+3. Root node - no parent exists
+4. Nested child folders with depth
+
+###### Edge cases, these most likely deal with erraneous look up operations, duplicate folder names, duplicate orgids or other attributes
+
+- Non-existent parents
+- Parent in a different OrgID
+- Invalid orgId
+- Empty / invalid parent name (this can include non-ascii characters which are important of internationalisation)
+- Case sensitivity - difference cases of folder names
+- Parent is a leaf node 
+- check malformed folder paths
+- parent name as a substring of exisitng folder (avoid partial matches)
+- Check for cyclic paths
+
+
+
+
+
+
