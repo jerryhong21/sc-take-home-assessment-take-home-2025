@@ -30,12 +30,14 @@ const MaxDepth = 5
 const DefaultOrgID = "c1556e17-b7c0-45a3-a6ae-9546248fb17a"
 
 // Node in the tree structure
+// Children JSON display format can be changed
 type Folder struct {
-	Name  string       `json:"name"`
-	OrgId uuid.UUID    `json:"org_id"`
-	Paths string       `json:"paths"`
-	Parent *Folder     `json:"-"` 				   // this is excluded from json
-	Children []*Folder `json:"children,omitempty"` // omitted if empty
+	Name   string    `json:"name"`
+	OrgId  uuid.UUID `json:"org_id"`
+	Paths  string    `json:"paths"`
+	Parent *Folder   `json:"-"` // this is excluded from json			   // this is excluded from json
+	// Children []*Folder `json:"children,omitempty"` // omitted if empty
+	Children []*Folder `json:"-"`
 }
 
 func GenerateData() []Folder {

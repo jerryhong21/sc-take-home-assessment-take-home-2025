@@ -5,7 +5,6 @@ import (
 	"github.com/gofrs/uuid"
 )
 
-
 func GetAllFolders() []Folder {
 	return GetSampleData()
 }

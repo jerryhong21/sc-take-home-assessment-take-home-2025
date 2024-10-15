@@ -7,7 +7,6 @@ import (
 	"github.com/gofrs/uuid"
 )
 
-
 func Test_folder_GetFoldersByOrgID(t *testing.T) {
 	t.Parallel()
 	tests := [...]struct {
@@ -15,9 +14,7 @@ func Test_folder_GetFoldersByOrgID(t *testing.T) {
 		orgID   uuid.UUID
 		folders []folder.Folder
 		want    []folder.Folder
-	}{
-
-	}
+	}{}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			// f, error := folder.NewDriver(tt.folders)
@@ -25,7 +22,6 @@ func Test_folder_GetFoldersByOrgID(t *testing.T) {
 			// 	t.Errorf("Creating drier")
 			// 	return
 			// }
-
 
 		})
 	}
@@ -36,10 +32,10 @@ func TestGetAllChildFolders(t *testing.T) {
 	orgID2 := uuid.Must(uuid.NewV4())
 
 	tests := []struct {
-		name         string
-		orgID        uuid.UUID
-		parent       string
-		want         []folder.Folder
+		name          string
+		orgID         uuid.UUID
+		parent        string
+		want          []folder.Folder
 		wantRunError  bool
 		wantInitError bool
 		// extra folders for specific scenarios like cyclic paths or duplicates to add at each test
@@ -48,49 +44,49 @@ func TestGetAllChildFolders(t *testing.T) {
 
 		// basic function tests
 		{
-			name:   "Retrieving child folders from a parent folder that has no children",
-			orgID:  orgID1,
-			parent: "echo",
-			want:   []folder.Folder{},
-			wantRunError: false,
+			name:          "Retrieving child folders from a parent folder that has no children",
+			orgID:         orgID1,
+			parent:        "echo",
+			want:          []folder.Folder{},
+			wantRunError:  false,
 			wantInitError: false,
 		},
 		{
-			name:  "parent with multiple direct and indirect child folders",
-			orgID: orgID1,
+			name:   "parent with multiple direct and indirect child folders",
+			orgID:  orgID1,
 			parent: "alpha",
 			want: []folder.Folder{
 				{Name: "bravo", OrgId: orgID1, Paths: "alpha.bravo"},
 				{Name: "charlie", OrgId: orgID1, Paths: "alpha.bravo.charlie"},
 				{Name: "delta", OrgId: orgID1, Paths: "alpha.delta"},
 			},
-			wantRunError: false,
+			wantRunError:  false,
 			wantInitError: false,
 		},
 		{
-			name:   "root nodes without children return an empty list",
+			name:          "root nodes without children return an empty list",
+			orgID:         orgID1,
+			parent:        "echo",
+			want:          []folder.Folder{},
+			wantRunError:  false,
+			wantInitError: false,
+		},
+		{
+			name:   "nested child folders with large depth",
 			orgID:  orgID1,
-			parent: "echo",
-			want:   []folder.Folder{},
-			wantRunError: false,
-			wantInitError: false,
-		},
-		{
-			name:  "nested child folders with large depth",
-			orgID: orgID1,
 			parent: "bravo",
 			want: []folder.Folder{
 				{Name: "charlie", OrgId: orgID1, Paths: "alpha.bravo.charlie"},
 			},
-			wantRunError: false,
+			wantRunError:  false,
 			wantInitError: false,
 		},
 		{
-			name:  "multiple parent folders sharing the same name within the same org",
-			orgID: orgID1,
-			parent: "commonParent",
-			want: nil,
-			wantRunError: true,
+			name:          "multiple parent folders sharing the same name within the same org",
+			orgID:         orgID1,
+			parent:        "commonParent",
+			want:          nil,
+			wantRunError:  true,
 			wantInitError: true,
 			extraFolders: []folder.Folder{
 				// Create two distinct parents named commonParent with unique paths.
@@ -101,11 +97,11 @@ func TestGetAllChildFolders(t *testing.T) {
 			},
 		},
 		{
-			name:    "duplicate folder names under the same parent and org",
-			orgID:   orgID1,
-			parent:  "alpha",
-			want:    nil, // Expecting an error due to duplicate names.
-			wantRunError: true,
+			name:          "duplicate folder names under the same parent and org",
+			orgID:         orgID1,
+			parent:        "alpha",
+			want:          nil, // Expecting an error due to duplicate names.
+			wantRunError:  true,
 			wantInitError: true,
 			extraFolders: []folder.Folder{
 				// duplicate folder named "bravo" under "alpha"
@@ -113,97 +109,97 @@ func TestGetAllChildFolders(t *testing.T) {
 			},
 		},
 		{
-			name:    "case sensitive parent names",
-			orgID:   orgID1,
-			parent:  "Alpha",
-			want:    nil,
-			wantRunError: true,
+			name:          "case sensitive parent names",
+			orgID:         orgID1,
+			parent:        "Alpha",
+			want:          nil,
+			wantRunError:  true,
 			wantInitError: false,
 		},
 		{
-			name:  "Managing multiple folders with identical names across different organizations",
-			orgID: orgID2,
+			name:   "Managing multiple folders with identical names across different organizations",
+			orgID:  orgID2,
 			parent: "foxtrot",
 			want: []folder.Folder{
 				{Name: "golf", OrgId: orgID2, Paths: "foxtrot.golf"},
 			},
-			wantRunError: false,
+			wantRunError:  false,
 			wantInitError: false,
 		},
 
 		// edge cases
 		{
-			name:    "Attempting to retrieve child folders from a non-existent parent folder",
-			orgID:   orgID1,
-			parent:  "invalid_folder",
-			want:    nil,
-			wantRunError: true,
+			name:          "Attempting to retrieve child folders from a non-existent parent folder",
+			orgID:         orgID1,
+			parent:        "invalid_folder",
+			want:          nil,
+			wantRunError:  true,
 			wantInitError: false,
 		},
 		{
-			name:    "Trying to access a parent folder that belongs to a different org",
-			orgID:   orgID1,
+			name:  "Trying to access a parent folder that belongs to a different org",
+			orgID: orgID1,
 			// 'foxtrot' already exists under OrgID2, not 1
-			parent:  "foxtrot", 
-			want:    nil,
-			wantRunError: true,
+			parent:        "foxtrot",
+			want:          nil,
+			wantRunError:  true,
 			wantInitError: false,
 		},
 		{
-			name:    "Handling scenarios where the provided OrgID is invalid",
-			orgID:   uuid.Nil, 
-			parent:  "alpha",
-			want:    nil,
-			wantRunError: true,
+			name:          "Handling scenarios where the provided OrgID is invalid",
+			orgID:         uuid.Nil,
+			parent:        "alpha",
+			want:          nil,
+			wantRunError:  true,
 			wantInitError: false,
 		},
 		{
-			name:    "Ensuring proper error handling when the parent name is empty",
-			orgID:   orgID1,
-			parent:  "",
-			want:    nil,
-			wantRunError: true,
+			name:          "Ensuring proper error handling when the parent name is empty",
+			orgID:         orgID1,
+			parent:        "",
+			want:          nil,
+			wantRunError:  true,
 			wantInitError: false,
 		},
 		{
-			name:    "Handling parent names containing Unicode characters gracefully",
-			orgID:   orgID1,
+			name:  "Handling parent names containing Unicode characters gracefully",
+			orgID: orgID1,
 			// non ascii characters
-			parent:  "αlphα",
-			want:    nil,
-			wantRunError: true,
+			parent:        "αlphα",
+			want:          nil,
+			wantRunError:  true,
 			wantInitError: false,
 		},
 		{
-			name:    "parent folder is a leaf node with no children",
-			orgID:   orgID1,
-			parent:  "echo",
-			want:    []folder.Folder{},
-			wantRunError: false,
+			name:          "parent folder is a leaf node with no children",
+			orgID:         orgID1,
+			parent:        "echo",
+			want:          []folder.Folder{},
+			wantRunError:  false,
 			wantInitError: false,
 		},
 		{
-			name:    "invalid folder paths strings",
-			orgID:   orgID1,
-			parent:  "alpha..bravo",
-			want:    nil,
-			wantRunError: true,
+			name:          "invalid folder paths strings",
+			orgID:         orgID1,
+			parent:        "alpha..bravo",
+			want:          nil,
+			wantRunError:  true,
 			wantInitError: false,
 		},
 		{
-			name:    "parent names which are substrings of existing folders should not get matches (false-positives)",
-			orgID:   orgID1,
-			parent:  "alp",
-			want:    nil,
-			wantRunError: true,
+			name:          "parent names which are substrings of existing folders should not get matches (false-positives)",
+			orgID:         orgID1,
+			parent:        "alp",
+			want:          nil,
+			wantRunError:  true,
 			wantInitError: false,
 		},
 		{
-			name:    "detect cycles upon folder construction",
-			orgID:   orgID1,
-			parent:  "alpha.charlie",
-			want:    nil,
-			wantRunError: true,
+			name:          "detect cycles upon folder construction",
+			orgID:         orgID1,
+			parent:        "alpha.charlie",
+			want:          nil,
+			wantRunError:  true,
 			wantInitError: true,
 			extraFolders: []folder.Folder{
 				// cycle folder path : alpha.charlie.alpha -> cycles back to alpha.
@@ -217,7 +213,7 @@ func TestGetAllChildFolders(t *testing.T) {
 		tt := tt
 
 		t.Run(tt.name, func(t *testing.T) {
-			
+
 			folders := []folder.Folder{
 				{Name: "alpha", OrgId: orgID1, Paths: "alpha"},
 				{Name: "bravo", OrgId: orgID1, Paths: "alpha.bravo"},
@@ -245,7 +241,6 @@ func TestGetAllChildFolders(t *testing.T) {
 				return
 			}
 
-
 			got, err := driver.GetAllChildFolders(tt.orgID, tt.parent)
 
 			// error checking
@@ -259,10 +254,6 @@ func TestGetAllChildFolders(t *testing.T) {
 				return
 			}
 
-			// deep equal
-			// if !tt.wantRunError && !reflect.DeepEqual(got, tt.want) {
-			// 	t.Errorf("GetAllChildFolders() returned %v, but expected %v", got, tt.want)
-			// }
 			if !tt.wantRunError && !compareFolders(got, tt.want) {
 				t.Errorf("GetAllChildFolders() returned %v, but expected %v", got, tt.want)
 
@@ -270,5 +261,3 @@ func TestGetAllChildFolders(t *testing.T) {
 		})
 	}
 }
-
-

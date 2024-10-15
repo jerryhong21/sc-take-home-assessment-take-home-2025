@@ -8,15 +8,44 @@ import (
 )
 
 func main() {
-	// orgID := uuid.FromStringOrNil(folder.DefaultOrgID)
 	orgId1 := uuid.Must(uuid.NewV4())
-	// orgId2 := uuid.Must(uuid.NewV4())
-	// folders := folder.GetAllFolders()
+	orgId2 := uuid.Must(uuid.NewV4())
 	var folders = []folder.Folder{
-				{Name: "alpha", Paths: "alpha", OrgId: orgId1},
-				{Name: "bravo", Paths: "alpha.bravo", OrgId: orgId1},
-				{Name: "charlie", Paths: "alpha.bravo.charlie", OrgId: orgId1},
-				{Name: "delta", Paths: "delta", OrgId: orgId1},
+		{
+			Name:  "alpha",
+			Paths: "alpha",
+			OrgId: orgId1,
+		},
+		{
+			Name:  "bravo",
+			Paths: "alpha.bravo",
+			OrgId: orgId1,
+		},
+		{
+			Name:  "charlie",
+			Paths: "alpha.bravo.charlie",
+			OrgId: orgId1,
+		},
+		{
+			Name:  "delta",
+			Paths: "alpha.delta",
+			OrgId: orgId1,
+		},
+		{
+			Name:  "echo",
+			Paths: "alpha.delta.echo",
+			OrgId: orgId1,
+		},
+		{
+			Name:  "foxtrot",
+			Paths: "foxtrot",
+			OrgId: orgId2,
+		},
+		{
+			Name:  "golf",
+			Paths: "golf",
+			OrgId: orgId1,
+		},
 	}
 
 	// example usage

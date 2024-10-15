@@ -11,41 +11,37 @@ import (
 type IDriver interface {
 	// GetFoldersByOrgID returns all folders that belong to a specific orgID.
 	GetFoldersByOrgID(orgID uuid.UUID) []Folder
-	// component 1
-	// Implement the following methods:
-	// GetAllChildFolders returns all child folders of a specific folder.
+
+	// Component 1
 	GetAllChildFolders(orgID uuid.UUID, name string) ([]Folder, error)
 
-	// component 2
-	// Implement the following methods:
-	// MoveFolder moves a folder to a new destination.
+	// Component 2
 	MoveFolder(name string, dst string) ([]Folder, error)
 }
 
 // Manages folder hierarchy
 type driver struct {
 	// Stores slice of all folders
-	folders     []*Folder 
-	pathIndex   map[string]*Folder
+	folders   []*Folder
+	pathIndex map[string]*Folder
 	// nameIndex and orgId index must account for folders with duplcate names and orgIds
-	nameIndex   map[string][]*Folder
-	orgIdIndex  map[uuid.UUID][]*Folder
-	mu          sync.RWMutex
+	nameIndex  map[string][]*Folder
+	orgIdIndex map[uuid.UUID][]*Folder
+	mu         sync.RWMutex
 }
 
 // Initialises FolderDriver, populating parent child
 // TODO: Implement cycle detection
 func NewDriver(folders []Folder) (IDriver, error) {
 	folderDriver := &driver{
-		folders: []*Folder{},
-		pathIndex: make(map[string]*Folder),
-		nameIndex: make(map[string][]*Folder),
+		folders:    []*Folder{},
+		pathIndex:  make(map[string]*Folder),
+		nameIndex:  make(map[string][]*Folder),
 		orgIdIndex: make(map[uuid.UUID][]*Folder),
 		// mutex lock does not require explicit initialisation
 	}
 
-	// populate folders and maps of driver
-	// here, folders is a slice of Folder, NOT *Folder
+	// populate folders and maps of driver, folders is a slice of Folder, NOT *Folder
 	for _, folder := range folders {
 		f := folder
 
@@ -119,4 +115,3 @@ func (d *driver) getAllFolders() []Folder {
 	}
 	return allFolders
 }
-

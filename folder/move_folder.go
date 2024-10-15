@@ -6,16 +6,16 @@ import (
 )
 
 /* Error checkings
-	1. Moving a node to a child of itself DONE
-	2. Moving a folder to itself DONE
-	3. Moving folders across orgId DONE
-	4. Invalid source folder name DONE
-	5. Invalid dest folder name DONE
+1. Moving a node to a child of itself DONE
+2. Moving a folder to itself DONE
+3. Moving folders across orgId DONE
+4. Invalid source folder name DONE
+5. Invalid dest folder name DONE
 */
 
-// Assumption: 
-// There can only be one orgId that contains 
-// a specific pair of folders with the names "name1" and "name2". 
+// Assumption:
+// There can only be one orgId that contains
+// a specific pair of folders with the names "name1" and "name2".
 func (d *driver) MoveFolder(name string, dst string) ([]Folder, error) {
 
 	if name == dst {
@@ -66,7 +66,7 @@ func (d *driver) MoveFolder(name string, dst string) ([]Folder, error) {
 	}
 
 	// check for cycles, dst cannot be a descendent of src
-	if (d.isDescendent(dstFolder, srcFolder)) {
+	if d.isDescendent(dstFolder, srcFolder) {
 		return nil, fmt.Errorf("moveFolder: dstFolder '%s' cannot be a descendent of scrFolder '%s'", dst, name)
 	}
 
@@ -90,7 +90,7 @@ func (d *driver) MoveFolder(name string, dst string) ([]Folder, error) {
 	// oldPath := srcFolder.Paths
 	newPath := fmt.Sprintf("%s.%s", dstFolder.Paths, name)
 	fmt.Printf("New path for folder %s is %s\n", srcFolder.Paths, newPath)
-	
+
 	// update all the paths and update pathIndex along the way
 	d.updatePaths(srcFolder, newPath)
 
@@ -105,14 +105,14 @@ func (d *driver) updatePaths(currFolder *Folder, newPath string) {
 	delete(d.pathIndex, oldPaths)
 
 	// remove oldPath index, create new pathIndex
-	d.pathIndex[newPath] = currFolder		
+	d.pathIndex[newPath] = currFolder
 
 	for _, child := range currFolder.Children {
 		c := child
 		newPath := fmt.Sprintf("%s.%s", newPath, c.Name)
 		d.updatePaths(c, newPath)
 	}
-} 
+}
 
 // Checks if child is the descendent of the parent
 // recrusively bubble up child folder
@@ -137,5 +137,3 @@ func (d *driver) removeChild(parent *Folder, child *Folder) error {
 	}
 	return fmt.Errorf("removeChild: child folder '%s' not found under parent '%s'", child.Name, parent.Name)
 }
-
-

@@ -1,28 +1,28 @@
 package folder_test
 
 import (
-	"sort"
 	"github.com/georgechieng-sc/interns-2022/folder"
+	"sort"
 )
 
 // this is a shallow comparison of folders that ignores parent and children comparison
 func compareFolders(got, want []folder.Folder) bool {
 
-    if len(got) != len(want) {
-        return false
-    }
+	if len(got) != len(want) {
+		return false
+	}
 
 	// sort them
 	sortFolders(got, lessThanComparator)
 	sortFolders(want, lessThanComparator)
 
-    for i := range got {
-        if got[i].Name != want[i].Name || got[i].Paths != want[i].Paths || got[i].OrgId != want[i].OrgId {
-            return false
-        }
-    }
+	for i := range got {
+		if got[i].Name != want[i].Name || got[i].Paths != want[i].Paths || got[i].OrgId != want[i].OrgId {
+			return false
+		}
+	}
 
-    return true
+	return true
 }
 
 func sortFolders(folders []folder.Folder, lessThanComparator func(f1, f2 folder.Folder) bool) {
