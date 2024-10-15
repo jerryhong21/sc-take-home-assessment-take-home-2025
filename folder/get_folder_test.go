@@ -1,7 +1,6 @@
 package folder_test
 
 import (
-	// "reflect"
 	"testing"
 
 	"github.com/georgechieng-sc/interns-2022/folder"
@@ -272,19 +271,4 @@ func TestGetAllChildFolders(t *testing.T) {
 	}
 }
 
-
-// Shallow comparison of folders that ignores parent comparison
-func compareFolders(got, want []folder.Folder) bool {
-    if len(got) != len(want) {
-        return false
-    }
-
-    for i := range got {
-        if got[i].Name != want[i].Name || got[i].Paths != want[i].Paths || got[i].OrgId != want[i].OrgId {
-            return false
-        }
-    }
-
-    return true
-}
 
