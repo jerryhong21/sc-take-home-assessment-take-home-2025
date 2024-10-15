@@ -79,3 +79,29 @@ Another major benefit is scalability, hierarchical relationships will be able to
 
 
 
+#### Test planning for `MoveFolder` function  \(16/10/24\) 
+
+#### Functionalities
+1. moving folder with no children into another folder with no children
+2. moving folder with no children into another folder with children
+3. moving folder with children into another folder with no children
+4. moving folder with children into another folder with children
+5. Move a deeply nested folder into another folder with children
+6. move folder in-place (move to its current parent)
+7. move folder when source is root folder
+
+
+##### Edge cases and error checking
+
+1. Moving a node to a child of itself
+2. Moving a folder to itself
+3. Moving folders across orgId
+4. Invalid source folder name
+5. Invalid dest folder name
+
+
+
+
+
+
+
