@@ -5,7 +5,6 @@ import (
 	"github.com/gofrs/uuid"
 )
 
-
 /* Error checkings
 1. Moving a node to a child of itself DONE
 2. Moving a folder to itself DONE
