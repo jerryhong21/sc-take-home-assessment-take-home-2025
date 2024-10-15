@@ -33,6 +33,7 @@ type driver struct {
 }
 
 // Initialises FolderDriver, populating parent child
+// TODO: Implement cycle detection
 func NewDriver(folders []Folder) (IDriver, error) {
 	folderDriver := &driver{
 		folders: []*Folder{},
@@ -50,18 +51,21 @@ func NewDriver(folders []Folder) (IDriver, error) {
 		// Check for duplicate folder names within the same OrgId
 		for _, existingFolder := range folderDriver.nameIndex[f.Name] {
 			if existingFolder.OrgId == f.OrgId {
-				return nil, fmt.Errorf("duplicate folder name '%s' in OrgId '%s'", f.Name, f.OrgId)
+				return nil, fmt.Errorf("newDriver: duplicate folder name '%s' in OrgId '%s'", f.Name, f.OrgId)
 			}
+		}
+
+		// Check for cycles
+		if hasRepeats(f.Paths) {
+			return nil, fmt.Errorf("newDriver: cannot instantiate path %s has it will create a cycle", folder.Paths)
 		}
 
 		folderDriver.folders = append(folderDriver.folders, &f)
 		folderDriver.pathIndex[f.Paths] = &f
 		folderDriver.nameIndex[f.Name] = append(folderDriver.nameIndex[f.Name], &f)
 		folderDriver.orgIdIndex[f.OrgId] = append(folderDriver.orgIdIndex[f.OrgId], &f)
-		fmt.Printf("Processed %s\n", folder.Name)
 	}
 
-	// precondition: folderDriver.folder and all folderDriver maps are populated
 	// folderDriver.folders stores a slice of *Folder
 	for _, folder := range folderDriver.folders {
 		// populate child and parent
@@ -73,10 +77,9 @@ func NewDriver(folders []Folder) (IDriver, error) {
 		}
 		parentFolder, found := folderDriver.pathIndex[parentPath]
 		if !found {
-			fmt.Printf("Error: Parent oath '%s' not found for folder '%s'\n", parentPath, folder.Name)
-			continue
+			return nil, fmt.Errorf("newDriver: Parent oath '%s' not found for folder '%s'", parentPath, folder.Name)
 		}
-	
+
 		// establish parent child
 		parentFolder.Children = append(parentFolder.Children, folder)
 		folder.Parent = parentFolder
@@ -85,6 +88,7 @@ func NewDriver(folders []Folder) (IDriver, error) {
 	return folderDriver, nil
 }
 
+// get the substring of childPath up until the last dot
 func getParentPath(childPath string) string {
 	lastDot := strings.LastIndex(childPath, ".")
 	if lastDot == -1 {
@@ -93,16 +97,15 @@ func getParentPath(childPath string) string {
 	return childPath[:lastDot]
 }
 
-// type driver struct {
-// 	// define attributes here
-// 	// data structure to store folders
-// 	// or preprocessed data
-
-// 	*FolderDriver
-// }
-
-// // receives folders, and returns a folderDriver
-// func NewDriver(folders []Folder) IDriver {
-// 	folderDriver := InitialiseFolderDriver(folders)
-// 	return &driver{folderDriver}
-// }
+// Checks if there exists repeated foldeName in path string
+func hasRepeats(s string) bool {
+	parts := strings.Split(s, ".")
+	seen := make(map[string]bool)
+	for _, part := range parts {
+		if seen[part] {
+			return true
+		}
+		seen[part] = true
+	}
+	return false
+}

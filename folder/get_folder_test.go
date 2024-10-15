@@ -200,12 +200,12 @@ func TestGetAllChildFolders(t *testing.T) {
 			wantInitError: false,
 		},
 		{
-			name:    "detect cycles within folder paths to avoid infinite loops",
+			name:    "detect cycles upon folder construction",
 			orgID:   orgID1,
 			parent:  "alpha.charlie",
 			want:    nil,
 			wantRunError: true,
-			wantInitError: false,
+			wantInitError: true,
 			extraFolders: []folder.Folder{
 				// cycle folder path : alpha.charlie.alpha -> cycles back to alpha.
 				{Name: "alpha.charlie.alpha", OrgId: orgID1, Paths: "alpha.charlie.alpha"},
