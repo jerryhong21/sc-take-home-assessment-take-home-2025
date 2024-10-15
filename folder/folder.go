@@ -24,7 +24,8 @@ type IDriver interface {
 
 // Manages folder hierarchy
 type driver struct {
-	folders     []*Folder // Stores slice of all folders
+	// Stores slice of all folders
+	folders     []*Folder 
 	pathIndex   map[string]*Folder
 	// nameIndex and orgId index must account for folders with duplcate names and orgIds
 	nameIndex   map[string][]*Folder
@@ -109,3 +110,13 @@ func hasRepeats(s string) bool {
 	}
 	return false
 }
+
+// Returns referenced folders
+func (d *driver) getAllFolders() []Folder {
+	var allFolders []Folder
+	for _, folder := range d.folders {
+		allFolders = append(allFolders, *folder)
+	}
+	return allFolders
+}
+

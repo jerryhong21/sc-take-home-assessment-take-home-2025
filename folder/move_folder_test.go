@@ -7,23 +7,22 @@ import (
 	"github.com/gofrs/uuid"
 )
 
-
 func Test_folder_MoveFolder(t *testing.T) {
 
 	orgId1 := uuid.Must(uuid.NewV4())
 	orgId2 := uuid.Must(uuid.NewV4())
 
 	tests := []struct {
-		name          string
+		name           string
 		initialFolders []folder.Folder
-		source        string
-		destination   string
-		want          []folder.Folder
+		source         string
+		destination    string
+		want           []folder.Folder
 		wantRunError   bool
 	}{
 		// Functionalities
 		{
-			name: "1. Moving folder with no children into another folder with no children",
+			name: "moving folder with no children into its own parent",
 			initialFolders: []folder.Folder{
 				{Name: "alpha", Paths: "alpha", OrgId: orgId1},
 				{Name: "bravo", Paths: "alpha.bravo", OrgId: orgId1},
@@ -41,7 +40,7 @@ func Test_folder_MoveFolder(t *testing.T) {
 		},
 
 		{
-			name: "2. moving folder with no children into another folder with children",
+			name: "moving folder with no children into another folder with children",
 			initialFolders: []folder.Folder{
 				{Name: "alpha", Paths: "alpha", OrgId: orgId1},
 				{Name: "delta", Paths: "alpha.delta", OrgId: orgId1},
@@ -60,7 +59,7 @@ func Test_folder_MoveFolder(t *testing.T) {
 			wantRunError: false,
 		},
 		{
-			name: "3. Moving folder with children into another folder with no children",
+			name: "moving folder with children into another folder with no children",
 			initialFolders: []folder.Folder{
 				{Name: "alpha", Paths: "alpha", OrgId: orgId1},
 				{Name: "bravo", Paths: "alpha.bravo", OrgId: orgId1},
@@ -78,7 +77,7 @@ func Test_folder_MoveFolder(t *testing.T) {
 			wantRunError: false,
 		},
 		{
-			name: "4. Moving folder with children into another folder with children",
+			name: "Moving folder with children into another folder with children",
 			initialFolders: []folder.Folder{
 				{Name: "alpha", Paths: "alpha", OrgId: orgId1},
 				// with children
@@ -88,7 +87,7 @@ func Test_folder_MoveFolder(t *testing.T) {
 				{Name: "delta", Paths: "alpha.delta", OrgId: orgId1},
 				{Name: "echo", Paths: "alpha.delta.echo", OrgId: orgId1},
 			},
-			source: "bravo",
+			source:      "bravo",
 			destination: "delta",
 			want: []folder.Folder{
 				{Name: "alpha", Paths: "alpha", OrgId: orgId1},
@@ -101,7 +100,7 @@ func Test_folder_MoveFolder(t *testing.T) {
 			wantRunError: false,
 		},
 		{
-			name: "5. Move a deeply nested folder into another folder with children",
+			name: "move a deeply nested folder into another folder with children",
 			initialFolders: []folder.Folder{
 				{Name: "alpha", Paths: "alpha", OrgId: orgId1},
 				{Name: "bravo", Paths: "alpha.bravo", OrgId: orgId1},
@@ -110,7 +109,7 @@ func Test_folder_MoveFolder(t *testing.T) {
 				{Name: "echo", Paths: "alpha.delta.echo", OrgId: orgId1},
 				{Name: "foxtrot", Paths: "alpha.bravo.charlie.foxtrot", OrgId: orgId1},
 			},
-			source: "charlie",
+			source:      "charlie",
 			destination: "delta",
 			want: []folder.Folder{
 				{Name: "alpha", Paths: "alpha", OrgId: orgId1},
@@ -123,12 +122,12 @@ func Test_folder_MoveFolder(t *testing.T) {
 			wantRunError: false,
 		},
 		{
-			name: "6. Move folder in-place (move to its current parent)",
+			name: "move folder in-place (move to its current parent)",
 			initialFolders: []folder.Folder{
 				{Name: "alpha", Paths: "alpha", OrgId: orgId1},
 				{Name: "bravo", Paths: "alpha.bravo", OrgId: orgId1},
 			},
-			source: "bravo",
+			source:      "bravo",
 			destination: "alpha",
 			want: []folder.Folder{
 				// no change expected
@@ -138,7 +137,7 @@ func Test_folder_MoveFolder(t *testing.T) {
 			wantRunError: false,
 		},
 		{
-			name: "7. Move folder when source is root folder",
+			name: "move folder when source is root folder",
 			initialFolders: []folder.Folder{
 				{Name: "alpha", Paths: "alpha", OrgId: orgId1},
 				{Name: "bravo", Paths: "bravo", OrgId: orgId1},
@@ -158,71 +157,71 @@ func Test_folder_MoveFolder(t *testing.T) {
 		// edge cases an error checking
 
 		{
-			name: "8. error moving a node to a child of itself",
+			name: "error moving a node to a child of itself",
 			initialFolders: []folder.Folder{
 				{Name: "alpha", Paths: "alpha", OrgId: orgId1},
 				{Name: "bravo", Paths: "alpha.bravo", OrgId: orgId1},
 				{Name: "charlie", Paths: "alpha.bravo.charlie", OrgId: orgId1},
 			},
-			source: "bravo",
-			destination: "charlie",
-			want: nil,
+			source:       "bravo",
+			destination:  "charlie",
+			want:         nil,
 			wantRunError: true,
 		},
 		{
-			name: "9. error when moving a folder to itself",
+			name: "error when moving a folder to itself",
 			initialFolders: []folder.Folder{
 				{Name: "alpha", Paths: "alpha", OrgId: orgId1},
 				{Name: "bravo", Paths: "alpha.bravo", OrgId: orgId1},
 			},
-			source:         "bravo",
-			destination:     "bravo",
-			want:            nil,
-			wantRunError:    true,
+			source:       "bravo",
+			destination:  "bravo",
+			want:         nil,
+			wantRunError: true,
 		},
 		{
-			name: "10. error: moving folders across orgID",
+			name: "error moving folders across orgID",
 			initialFolders: []folder.Folder{
 				{Name: "alpha", Paths: "alpha", OrgId: orgId1},
 				{Name: "bravo", Paths: "alpha.bravo", OrgId: orgId1},
 				{Name: "foxtrot", Paths: "foxtrot", OrgId: orgId2},
 			},
-			source:          "bravo",
-			destination:     "foxtrot",
-			want:            nil,
-			wantRunError:    true,
+			source:       "bravo",
+			destination:  "foxtrot",
+			want:         nil,
+			wantRunError: true,
 		},
 		{
-			name: "11. Invalid source folder name",
+			name: "invald source folder name",
 			initialFolders: []folder.Folder{
 				{Name: "alpha", Paths: "alpha", OrgId: orgId1},
 				{Name: "delta", Paths: "alpha.delta", OrgId: orgId1},
 			},
-			source: "invalid_folder",
-			destination: "delta",
-			want: nil,
+			source:       "invalid_folder",
+			destination:  "delta",
+			want:         nil,
 			wantRunError: true,
 		},
 		{
-			name: "12. Invalid destination folder name",
+			name: "Invalid destination folder name",
 			initialFolders: []folder.Folder{
 				{Name: "alpha", Paths: "alpha", OrgId: orgId1},
 				{Name: "bravo", Paths: "alpha.bravo", OrgId: orgId1},
 			},
-			source: "bravo",
-			destination: "invalid_folder",
-			want: nil,
+			source:       "bravo",
+			destination:  "invalid_folder",
+			want:         nil,
 			wantRunError: true,
 		},
 		{
-			name: "13. Invalid destination AND source folder names",
+			name: "invalid destination AND source folder names",
 			initialFolders: []folder.Folder{
 				{Name: "alpha", Paths: "alpha", OrgId: orgId1},
 				{Name: "bravo", Paths: "alpha.bravo", OrgId: orgId1},
 			},
-			source: "invalid1",
-			destination: "invalid2",
-			want: nil,
+			source:       "invalid1",
+			destination:  "invalid2",
+			want:         nil,
 			wantRunError: true,
 		},
 	}
@@ -243,7 +242,6 @@ func Test_folder_MoveFolder(t *testing.T) {
 				return
 			}
 
-
 			if !tt.wantRunError && err != nil {
 				t.Errorf("MoveFolder() received unexpected error: %v", err)
 				return
@@ -251,9 +249,12 @@ func Test_folder_MoveFolder(t *testing.T) {
 
 			// shallow folder comparison
 			if !compareFolders(got, tt.want) {
+				folder.PrettyPrint(got)
+				folder.PrettyPrint(tt.want)
+
 				t.Errorf("MoveFolder() = %v, want %v", got, tt.want)
+
 			}
 		})
 	}
 }
-
