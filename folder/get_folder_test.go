@@ -44,7 +44,7 @@ func TestGetAllChildFolders(t *testing.T) {
 
 		// basic function tests
 		{
-			name:          "Retrieving child folders from a parent folder that has no children",
+			name:          "child folders from a parent folder that has no children",
 			orgID:         orgID1,
 			parent:        "echo",
 			want:          []folder.Folder{},
@@ -129,15 +129,7 @@ func TestGetAllChildFolders(t *testing.T) {
 
 		// edge cases
 		{
-			name:          "Attempting to retrieve child folders from a non-existent parent folder",
-			orgID:         orgID1,
-			parent:        "invalid_folder",
-			want:          nil,
-			wantRunError:  true,
-			wantInitError: false,
-		},
-		{
-			name:  "Trying to access a parent folder that belongs to a different org",
+			name:  "access a parent folder that belongs to a different org",
 			orgID: orgID1,
 			// 'foxtrot' already exists under OrgID2, not 1
 			parent:        "foxtrot",
@@ -146,7 +138,7 @@ func TestGetAllChildFolders(t *testing.T) {
 			wantInitError: false,
 		},
 		{
-			name:          "Handling scenarios where the provided OrgID is invalid",
+			name:          "OrgID is invalid",
 			orgID:         uuid.Nil,
 			parent:        "alpha",
 			want:          nil,
@@ -154,18 +146,26 @@ func TestGetAllChildFolders(t *testing.T) {
 			wantInitError: false,
 		},
 		{
-			name:          "Ensuring proper error handling when the parent name is empty",
+			name:          "retrieve child folders from a non-existent parent folder",
 			orgID:         orgID1,
-			parent:        "",
+			parent:        "invalid_folder",
 			want:          nil,
 			wantRunError:  true,
 			wantInitError: false,
 		},
 		{
-			name:  "Handling parent names containing Unicode characters gracefully",
+			name:  "parent folder name with non-ascii characters",
 			orgID: orgID1,
 			// non ascii characters
 			parent:        "αlphα",
+			want:          nil,
+			wantRunError:  true,
+			wantInitError: false,
+		},
+		{
+			name:          "retrieve child folders from a parent folder that has no children",
+			orgID:         orgID1,
+			parent:        "",
 			want:          nil,
 			wantRunError:  true,
 			wantInitError: false,

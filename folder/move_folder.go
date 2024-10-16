@@ -5,14 +5,6 @@ import (
 	"github.com/gofrs/uuid"
 )
 
-/* Error checkings
-1. Moving a node to a child of itself DONE
-2. Moving a folder to itself DONE
-3. Moving folders across orgId DONE
-4. Invalid source folder name DONE
-5. Invalid dest folder name DONE
-*/
-
 // Assumption:
 // There can only be one orgId that contains
 // a specific pair of folders with the names "name1" and "name2".
