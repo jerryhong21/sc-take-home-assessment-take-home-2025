@@ -2,6 +2,19 @@
 
 The technical take home for 2024 internship applications.
 
+# Notes:
+I've included two key files in the repository that may be helpful for context, when navigating my submission:
+
+### `blog.md`
+This file outlines my thought process behind some of the decisions and changes I made while working on the task.
+
+### `assumptions.md`
+Here, I explain the assumptions I made during the task which directly relates to the rationale behind my error-checking processes.
+
+
+
+
+
 ## Getting started
 
 Requires `Go` >= `1.23`
